@@ -1,0 +1,12 @@
+D14-1162.pdf
+D14-1162.md
+AGENTS.md
+TIMETABLE.md
+PLAN.md
+INITIATION.md
+generate_timetable.py
+.venv/
+__pycache__/
+*.pyc
+outputs/
+*.egg-info/
