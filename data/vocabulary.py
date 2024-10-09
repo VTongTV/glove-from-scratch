@@ -22,3 +22,14 @@ class Vocabulary:
         for idx, (word, _) in enumerate(most_common):
             self.word2idx[word] = idx
             self.idx2word[idx] = word
+
+    def filter_top_n(self, n):
+        most_common = self.word2count.most_common(n)
+        self.word2count = collections.Counter(dict(most_common))
+        self.build_indices()
+
+    def __contains__(self, word):
+        return word in self.word2idx
+
+    def __len__(self):
+        return len(self.word2idx)
