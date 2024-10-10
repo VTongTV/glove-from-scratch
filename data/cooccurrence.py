@@ -22,7 +22,23 @@ class CooccurrenceMatrix:
                 self._update_window(window)
 
     def _update_window(self, window):
-        raise NotImplementedError
+        if len(window) < 2:
+            return
+        center = len(window) // 2
+        target = window[center]
+        if target not in self.vocab:
+            return
+        start = max(0, center - self.window_size)
+        end = min(len(window), center + self.window_size + 1)
+        for j in range(start, end):
+            if j == center:
+                continue
+            context = window[j]
+            if context not in self.vocab:
+                continue
+            if self.context_type == "asymmetric" and j > center:
+                continue
+            self.entries[target][context] += 1.0
 
     def nonzero_entries(self):
         for i_word, contexts in self.entries.items():
