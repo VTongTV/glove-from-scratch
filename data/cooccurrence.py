@@ -38,7 +38,8 @@ class CooccurrenceMatrix:
                 continue
             if self.context_type == "asymmetric" and j > center:
                 continue
-            self.entries[target][context] += 1.0
+            distance = abs(j - center)
+            self.entries[target][context] += 1.0 / distance
 
     def nonzero_entries(self):
         for i_word, contexts in self.entries.items():
