@@ -30,13 +30,15 @@ class CooccurrenceMatrix:
             return
         start = max(0, center - self.window_size)
         end = min(len(window), center + self.window_size + 1)
-        for j in range(start, end):
+        if self.context_type == "symmetric":
+            context_range = range(start, end)
+        else:
+            context_range = range(start, center)
+        for j in context_range:
             if j == center:
                 continue
             context = window[j]
             if context not in self.vocab:
-                continue
-            if self.context_type == "asymmetric" and j > center:
                 continue
             distance = abs(j - center)
             self.entries[target][context] += 1.0 / distance
