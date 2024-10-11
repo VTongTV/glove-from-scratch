@@ -11,37 +11,22 @@ class CooccurrenceMatrix:
 
     def build(self, token_stream):
         self.entries = defaultdict(lambda: defaultdict(float))
-        window = []
+        all_tokens = []
         for tokens in token_stream:
-            for token in tokens:
-                if token not in self.vocab:
+            all_tokens.extend(t for t in tokens if t in self.vocab)
+        for i, target in enumerate(all_tokens):
+            start = max(0, i - self.window_size)
+            end = min(len(all_tokens), i + self.window_size + 1)
+            if self.context_type == "symmetric":
+                context_range = range(start, end)
+            else:
+                context_range = range(start, i)
+            for j in context_range:
+                if j == i:
                     continue
-                window.append(token)
-                if len(window) > 2 * self.window_size + 1:
-                    window.pop(0)
-                self._update_window(window)
-
-    def _update_window(self, window):
-        if len(window) < 2:
-            return
-        center = len(window) // 2
-        target = window[center]
-        if target not in self.vocab:
-            return
-        start = max(0, center - self.window_size)
-        end = min(len(window), center + self.window_size + 1)
-        if self.context_type == "symmetric":
-            context_range = range(start, end)
-        else:
-            context_range = range(start, center)
-        for j in context_range:
-            if j == center:
-                continue
-            context = window[j]
-            if context not in self.vocab:
-                continue
-            distance = abs(j - center)
-            self.entries[target][context] += 1.0 / distance
+                context = all_tokens[j]
+                distance = abs(j - i)
+                self.entries[target][context] += 1.0 / distance
 
     def nonzero_entries(self):
         for i_word, contexts in self.entries.items():
