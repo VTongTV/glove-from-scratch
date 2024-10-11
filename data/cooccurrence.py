@@ -58,3 +58,15 @@ class CooccurrenceMatrix:
                     cols.append(self.vocab.word2idx[j_word])
                     vals.append(count)
         return np.array(rows), np.array(cols), np.array(vals)
+
+    def save(self, path):
+        rows, cols, vals = self.to_triplets()
+        np.savez(path, rows=rows, cols=cols, vals=vals)
+
+    def load(self, path):
+        data = np.load(path if path.endswith(".npz") else path + ".npz")
+        self.entries = defaultdict(lambda: defaultdict(float))
+        for i, j, v in zip(data["rows"], data["cols"], data["vals"]):
+            i_word = self.vocab.idx2word[int(i)]
+            j_word = self.vocab.idx2word[int(j)]
+            self.entries[i_word][j_word] = v
