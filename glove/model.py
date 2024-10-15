@@ -25,3 +25,10 @@ class GloVeModel:
         diff += self.b[rows] + self.b_tilde[cols] - np.log(vals)
         f_x = weight_func(vals)
         return np.sum(f_x * diff ** 2)
+
+    def compute_grad_w(self, i, j, x_ij):
+        diff = np.dot(self.W[i], self.W_tilde[j]) + self.b[i] + self.b_tilde[j] - np.log(x_ij)
+        f_x = weight_func(x_ij)
+        grad_w_i = f_x * diff * self.W_tilde[j]
+        grad_w_tilde_j = f_x * diff * self.W[i]
+        return grad_w_i, grad_w_tilde_j
