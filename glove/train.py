@@ -38,4 +38,7 @@ def train(model, rows, cols, vals, num_iterations=None):
         avg_loss = total_loss / len(v)
         loss_history.append(avg_loss)
         logger.info(f"iteration {iteration + 1}/{num_iterations} loss={avg_loss:.6f}")
+        if len(loss_history) > 1 and abs(loss_history[-2] - avg_loss) / (abs(loss_history[-2]) + 1e-10) < 1e-4:
+            logger.info(f"converged at iteration {iteration + 1}")
+            break
     return loss_history
