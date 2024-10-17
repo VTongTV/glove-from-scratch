@@ -23,3 +23,19 @@ def train_step(model, optimizer, i, j, x_ij):
     from glove.weighting import weight_func
     f_x = weight_func(x_ij)
     return f_x * diff ** 2
+
+def train(model, rows, cols, vals, num_iterations=None):
+    if num_iterations is None:
+        num_iterations = config.ITERATIONS_LARGE if model.embedding_dim >= 300 else config.ITERATIONS_SMALL
+    optimizer = AdaGrad(model.vocab_size, model.embedding_dim)
+    loss_history = []
+    for iteration in range(num_iterations):
+        r, c, v = shuffle_data(rows, cols, vals, seed=config.SEED + iteration)
+        total_loss = 0.0
+        for idx in range(len(v)):
+            loss = train_step(model, optimizer, r[idx], c[idx], v[idx])
+            total_loss += loss
+        avg_loss = total_loss / len(v)
+        loss_history.append(avg_loss)
+        logger.info(f"iteration {iteration + 1}/{num_iterations} loss={avg_loss:.6f}")
+    return loss_history
