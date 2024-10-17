@@ -39,3 +39,7 @@ class GloVeModel:
         grad_b_i = f_x * diff
         grad_b_tilde_j = f_x * diff
         return grad_b_i, grad_b_tilde_j
+
+    def get_vectors(self, vocab):
+        combined = self.W + self.W_tilde
+        return {word: combined[idx] for word, idx in vocab.word2idx.items()}
