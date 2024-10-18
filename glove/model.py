@@ -29,15 +29,15 @@ class GloVeModel:
     def compute_grad_w(self, i, j, x_ij):
         diff = np.dot(self.W[i], self.W_tilde[j]) + self.b[i] + self.b_tilde[j] - np.log(x_ij)
         f_x = weight_func(x_ij)
-        grad_w_i = f_x * diff * self.W_tilde[j]
-        grad_w_tilde_j = f_x * diff * self.W[i]
+        grad_w_i = 2 * f_x * diff * self.W_tilde[j]
+        grad_w_tilde_j = 2 * f_x * diff * self.W[i]
         return grad_w_i, grad_w_tilde_j
 
     def compute_grad_b(self, i, j, x_ij):
         diff = np.dot(self.W[i], self.W_tilde[j]) + self.b[i] + self.b_tilde[j] - np.log(x_ij)
         f_x = weight_func(x_ij)
-        grad_b_i = f_x * diff
-        grad_b_tilde_j = f_x * diff
+        grad_b_i = 2 * f_x * diff
+        grad_b_tilde_j = 2 * f_x * diff
         return grad_b_i, grad_b_tilde_j
 
     def get_vectors(self, vocab):
