@@ -42,3 +42,34 @@ def train(model, rows, cols, vals, num_iterations=None):
             logger.info(f"converged at iteration {iteration + 1}")
             break
     return loss_history
+
+if __name__ == "__main__":
+    import argparse
+    from data.tokenizer import tokenize_file
+    from data.vocabulary import Vocabulary
+    from data.cooccurrence import CooccurrenceMatrix
+    from glove.io import save_vectors
+
+    logging.basicConfig(level=logging.INFO)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--corpus", required=True)
+    parser.add_argument("--dim", type=int, default=config.EMBEDDING_DIM)
+    parser.add_argument("--window", type=int, default=config.WINDOW_SIZE)
+    parser.add_argument("--iterations", type=int, default=None)
+    parser.add_argument("--output", default="outputs/vectors.txt")
+    args = parser.parse_args()
+
+    vocab = Vocabulary()
+    vocab.count_from_file(args.corpus, tokenize_file)
+    vocab.filter_top_n(config.VOCAB_SIZE)
+
+    cooc = CooccurrenceMatrix(vocab, window_size=args.window)
+    cooc.build(tokenize_file(args.corpus))
+
+    rows, cols, vals = prepare_training_data(cooc)
+    model = GloVeModel(len(vocab), embedding_dim=args.dim)
+    train(model, rows, cols, vals, num_iterations=args.iterations)
+
+    vectors = model.get_vectors(vocab)
+    save_vectors(args.output, vectors)
