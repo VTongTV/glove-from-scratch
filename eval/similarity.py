@@ -28,3 +28,41 @@ def load_mc(path):
                 except ValueError:
                     continue
     return pairs
+
+def load_rg(path):
+    pairs = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            parts = line.strip().split()
+            if len(parts) >= 3:
+                try:
+                    pairs.append((parts[0].lower(), parts[1].lower(), float(parts[2])))
+                except ValueError:
+                    continue
+    return pairs
+
+def load_scws(path):
+    pairs = []
+    with open(path, "r", encoding="utf-8") as f:
+        next(f)
+        for line in f:
+            parts = line.strip().split("\t")
+            if len(parts) >= 8:
+                try:
+                    pairs.append((parts[1].lower(), parts[3].lower(), float(parts[7])))
+                except ValueError:
+                    continue
+    return pairs
+
+def load_rw(path):
+    pairs = []
+    with open(path, "r", encoding="utf-8") as f:
+        next(f)
+        for line in f:
+            parts = line.strip().split("\t")
+            if len(parts) >= 3:
+                try:
+                    pairs.append((parts[0].lower(), parts[1].lower(), float(parts[2])))
+                except ValueError:
+                    continue
+    return pairs
