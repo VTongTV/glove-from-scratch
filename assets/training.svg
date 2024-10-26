@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" font-family="'Consolas','Courier New',monospace">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="960" height="580" fill="#0B1120"/>
+  <g opacity="0.04" stroke="#1E3A5F" stroke-width="0.5">
+    <line x1="96" y1="0" x2="96" y2="580"/><line x1="192" y1="0" x2="192" y2="580"/>
+    <line x1="288" y1="0" x2="288" y2="580"/><line x1="384" y1="0" x2="384" y2="580"/>
+    <line x1="480" y1="0" x2="480" y2="580"/><line x1="576" y1="0" x2="576" y2="580"/>
+    <line x1="672" y1="0" x2="672" y2="580"/><line x1="768" y1="0" x2="768" y2="580"/>
+    <line x1="864" y1="0" x2="864" y2="580"/>
+  </g>
+
+  <rect x="0" y="0" width="960" height="3" fill="#FFB800" opacity="0.6"/>
+  <text x="20" y="22" fill="#FFB800" font-size="11" font-weight="bold" letter-spacing="3" opacity="0.9">TRAINING LOOP — ADAGRAD</text>
+  <text x="940" y="22" fill="#4A6080" font-size="9" text-anchor="end">SYS://GLOVE/TRAIN</text>
+  <circle cx="880" cy="17" r="3" fill="#FFB800" opacity="0.8">
+    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- === MAIN LOOP PANEL === -->
+  <g>
+    <rect x="30" y="50" width="900" height="310" fill="#111827" stroke="#1E3A5F" stroke-width="1"/>
+    <line x1="30" y1="50" x2="70" y2="50" stroke="#FFB800" stroke-width="1.5" opacity="0.6"/>
+    <line x1="930" y1="50" x2="890" y2="50" stroke="#00D4FF" stroke-width="1.5" opacity="0.6"/>
+
+    <!-- Step 1: Sample -->
+    <g>
+      <rect x="50" y="70" width="180" height="80" fill="#1A2535" stroke="#1E3A5F" stroke-width="1"/>
+      <line x1="50" y1="70" x2="90" y2="70" stroke="#FFB800" stroke-width="1.5" opacity="0.5"/>
+      <text x="60" y="88" fill="#FFB800" font-size="9" font-weight="bold" letter-spacing="1">① SAMPLE</text>
+      <text x="60" y="105" fill="#E8F0FE" font-size="8">Pick (i, j, X_ij)</text>
+      <text x="60" y="118" fill="#4A6080" font-size="7">from nonzero triplets</text>
+      <text x="60" y="140" fill="#4A6080" font-size="7">STOCHASTIC SAMPLING</text>
+    </g>
+
+    <!-- Arrow 1→2 -->
+    <line x1="234" y1="110" x2="270" y2="110" stroke="#FFB800" stroke-width="1" opacity="0.4"/>
+    <circle r="2" fill="#FFB800" opacity="0.7">
+      <animateMotion dur="1s" repeatCount="indefinite" path="M234,110 L270,110"/>
+    </circle>
+
+    <!-- Step 2: Compute gradients -->
+    <g>
+      <rect x="272" y="70" width="200" height="80" fill="#1A2535" stroke="#1E3A5F" stroke-width="1"/>
+      <line x1="272" y1="70" x2="312" y2="70" stroke="#00D4FF" stroke-width="1.5" opacity="0.5"/>
+      <text x="282" y="88" fill="#00D4FF" font-size="9" font-weight="bold" letter-spacing="1">② GRADIENTS</text>
+      <text x="282" y="105" fill="#E8F0FE" font-size="8">diff = w_i·w̃_j + b_i + b̃_j − log(X_ij)</text>
+      <text x="282" y="118" fill="#9F43FF" font-size="8" font-weight="bold">∂J/∂w_i = 2·f(X_ij)·diff·w̃_j</text>
+      <text x="282" y="131" fill="#9F43FF" font-size="8" font-weight="bold">∂J/∂w̃_j = 2·f(X_ij)·diff·w_i</text>
+      <text x="282" y="140" fill="#4A6080" font-size="7">PLUS BIAS GRADIENTS</text>
+    </g>
+
+    <!-- Arrow 2→3 -->
+    <line x1="476" y1="110" x2="512" y2="110" stroke="#00D4FF" stroke-width="1" opacity="0.4"/>
+    <circle r="2" fill="#00D4FF" opacity="0.7">
+      <animateMotion dur="1s" repeatCount="indefinite" path="M476,110 L512,110" begin="0.3s"/>
+    </circle>
+
+    <!-- Step 3: Accumulate squared gradients -->
+    <g>
+      <rect x="514" y="70" width="200" height="80" fill="#1A2535" stroke="#1E3A5F" stroke-width="1"/>
+      <line x1="514" y1="70" x2="554" y2="70" stroke="#9F43FF" stroke-width="1.5" opacity="0.5"/>
+      <text x="524" y="88" fill="#9F43FF" font-size="9" font-weight="bold" letter-spacing="1">③ ACCUMULATE G²</text>
+      <text x="524" y="105" fill="#E8F0FE" font-size="8">G_w[i] += (∂J/∂w_i)²</text>
+      <text x="524" y="118" fill="#E8F0FE" font-size="8">G_w̃[j] += (∂J/∂w̃_j)²</text>
+      <text x="524" y="140" fill="#4A6080" font-size="7">PER-PARAMETER STATE</text>
+    </g>
+
+    <!-- Arrow 3→4 -->
+    <line x1="718" y1="110" x2="754" y2="110" stroke="#9F43FF" stroke-width="1" opacity="0.4"/>
+    <circle r="2" fill="#9F43FF" opacity="0.7">
+      <animateMotion dur="1s" repeatCount="indefinite" path="M718,110 L754,110" begin="0.6s"/>
+    </circle>
+
+    <!-- Step 4: Update parameters -->
+    <g>
+      <rect x="756" y="70" width="160" height="80" fill="#1A2535" stroke="#1E3A5F" stroke-width="1"/>
+      <line x1="916" y1="70" x2="876" y2="70" stroke="#26DE81" stroke-width="1.5" opacity="0.5"/>
+      <text x="766" y="88" fill="#26DE81" font-size="9" font-weight="bold" letter-spacing="1">④ UPDATE</text>
+      <text x="766" y="105" fill="#E8F0FE" font-size="8">w_i -= η·g / √G_w[i]</text>
+      <text x="766" y="118" fill="#E8F0FE" font-size="8">w̃_j -= η·g / √G_w̃[j]</text>
+      <text x="766" y="140" fill="#4A6080" font-size="7">η = 0.05 (INITIAL)</text>
+    </g>
+
+    <!-- Loop arrow back -->
+    <path d="M836,154 L836,175 L120,175 L120,154" fill="none" stroke="#FFB800" stroke-width="1" opacity="0.3" stroke-dasharray="4 3"/>
+    <polygon points="120,154 116,162 124,162" fill="#FFB800" opacity="0.3"/>
+    <text x="480" y="188" text-anchor="middle" fill="#4A6080" font-size="7">REPEAT FOR ALL NONZERO ENTRIES → NEXT ITERATION</text>
+
+    <!-- Animated pulse along the loop -->
+    <circle r="2.5" fill="#FFB800" opacity="0.6">
+      <animateMotion dur="4s" repeatCount="indefinite" path="M836,154 L836,175 L120,175 L120,154"/>
+    </circle>
+  </g>
+
+  <!-- === ADAGRAD DETAIL PANEL === -->
+  <g>
+    <rect x="30" y="190" width="440" height="160" fill="#111827" stroke="#1E3A5F" stroke-width="1"/>
+    <line x1="30" y1="190" x2="70" y2="190" stroke="#FFB800" stroke-width="1.5" opacity="0.5"/>
+    <text x="40" y="210" fill="#FFB800" font-size="10" font-weight="bold" letter-spacing="1">ADAGRAD — PER-PARAMETER ADAPTIVE LR</text>
+
+    <!-- Formula -->
+    <text x="40" y="235" fill="#E8F0FE" font-size="10">θ_t+1 = θ_t − (η / √(G_t + ε)) ⊙ g_t</text>
+    <text x="40" y="255" fill="#4A6080" font-size="8">G_t = Σ g² (CUMULATIVE SUM OF SQUARED GRADIENTS)</text>
+    <text x="40" y="270" fill="#4A6080" font-size="8">ε = 1e-8 (NUMERICAL STABILITY)</text>
+    <text x="40" y="285" fill="#4A6080" font-size="8">η = 0.05 (INITIAL LEARNING RATE)</text>
+
+    <!-- Effective learning rate display -->
+    <text x="40" y="310" fill="#E8F0FE" font-size="9">EFFECTIVE LR = η / √(G + ε)</text>
+    <text x="40" y="328" fill="#4A6080" font-size="7">DECREASES OVER TIME AS G GROWS → ADAPTS AUTOMATICALLY</text>
+
+    <!-- Mini bar chart: effective LR decay -->
+    <g transform="translate(300,250)" opacity="0.4">
+      <rect x="0" y="0" width="12" height="60" fill="#FFB800" opacity="0.6"/>
+      <rect x="16" y="10" width="12" height="50" fill="#FFB800" opacity="0.5"/>
+      <rect x="32" y="18" width="12" height="42" fill="#FFB800" opacity="0.4"/>
+      <rect x="48" y="24" width="12" height="36" fill="#FFB800" opacity="0.35"/>
+      <rect x="64" y="28" width="12" height="32" fill="#FFB800" opacity="0.3"/>
+      <rect x="80" y="32" width="12" height="28" fill="#FFB800" opacity="0.25"/>
+      <rect x="96" y="35" width="12" height="25" fill="#FFB800" opacity="0.2"/>
+      <text x="50" y="75" fill="#4A6080" font-size="6" text-anchor="middle">EFFECTIVE LR OVER UPDATES</text>
+    </g>
+  </g>
+
+  <!-- === ITERATION CONTROL PANEL === -->
+  <g>
+    <rect x="490" y="190" width="440" height="160" fill="#111827" stroke="#1E3A5F" stroke-width="1"/>
+    <line x1="930" y1="190" x2="890" y2="190" stroke="#00D4FF" stroke-width="1.5" opacity="0.5"/>
+    <text x="500" y="210" fill="#00D4FF" font-size="10" font-weight="bold" letter-spacing="1">ITERATION SCHEDULE</text>
+
+    <!-- Iteration table -->
+    <g font-size="8">
+      <text x="500" y="235" fill="#8BA3C7">DIMENSION</text>
+      <text x="620" y="235" fill="#8BA3C7">ITERATIONS</text>
+      <text x="740" y="235" fill="#8BA3C7">STATUS</text>
+      <line x1="500" y1="240" x2="910" y2="240" stroke="#1E3A5F" stroke-width="0.5"/>
+      <text x="500" y="255" fill="#E8F0FE">50, 100, 200</text>
+      <text x="620" y="255" fill="#FFB800">50</text>
+      <text x="740" y="255" fill="#4A6080">&lt; 300</text>
+      <text x="500" y="270" fill="#E8F0FE">300, 500, 600</text>
+      <text x="620" y="270" fill="#FFB800">100</text>
+      <text x="740" y="270" fill="#4A6080">≥ 300</text>
+    </g>
+
+    <!-- Convergence check -->
+    <text x="500" y="300" fill="#26DE81" font-size="9" font-weight="bold" letter-spacing="1">CONVERGENCE CHECK</text>
+    <text x="500" y="318" fill="#8BA3C7" font-size="8">IF |loss[t-1] - loss[t]| / |loss[t-1]| &lt; 1e-4:</text>
+    <text x="520" y="334" fill="#26DE81" font-size="8">STOP EARLY</text>
+
+    <!-- Status indicator -->
+    <rect x="820" y="290" width="90" height="45" fill="#1A2535" stroke="#1E3A5F" stroke-width="1"/>
+    <text x="830" y="308" fill="#4A6080" font-size="7">TRAIN STATUS:</text>
+    <circle cx="830" cy="322" r="3" fill="#26DE81" opacity="0.8">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="1s" repeatCount="indefinite"/>
+    </circle>
+    <text x="838" y="325" fill="#26DE81" font-size="8" font-weight="bold">RUNNING</text>
+  </g>
+
+  <!-- === PARAMETER STATE PANEL === -->
+  <g>
+    <rect x="30" y="380" width="900" height="130" fill="#111827" stroke="#1E3A5F" stroke-width="1"/>
+    <line x1="30" y1="380" x2="70" y2="380" stroke="#9F43FF" stroke-width="1.5" opacity="0.5"/>
+    <text x="40" y="400" fill="#9F43FF" font-size="10" font-weight="bold" letter-spacing="1">PARAMETER STATE — PER ITERATION</text>
+
+    <!-- Parameter cards -->
+    <!-- W -->
+    <g>
+      <rect x="50" y="415" width="130" height="70" fill="#1A2535" stroke="#1E3A5F" stroke-width="1"/>
+      <text x="60" y="433" fill="#FFB800" font-size="9" font-weight="bold">W</text>
+      <text x="60" y="448" fill="#4A6080" font-size="7">[V × 300]</text>
+      <text x="60" y="462" fill="#8BA3C7" font-size="7">grad_sq_W[i]</text>
+      <text x="60" y="476" fill="#4A6080" font-size="6">UPDATED EACH STEP</text>
+    </g>
+    <!-- W_tilde -->
+    <g>
+      <rect x="200" y="415" width="130" height="70" fill="#1A2535" stroke="#1E3A5F" stroke-width="1"/>
+      <text x="210" y="433" fill="#00D4FF" font-size="9" font-weight="bold">W̃</text>
+      <text x="210" y="448" fill="#4A6080" font-size="7">[V × 300]</text>
+      <text x="210" y="462" fill="#8BA3C7" font-size="7">grad_sq_W̃[j]</text>
+      <text x="210" y="476" fill="#4A6080" font-size="6">UPDATED EACH STEP</text>
+    </g>
+    <!-- b -->
+    <g>
+      <rect x="350" y="415" width="130" height="70" fill="#1A2535" stroke="#1E3A5F" stroke-width="1"/>
+      <text x="360" y="433" fill="#FF4757" font-size="9" font-weight="bold">b</text>
+      <text x="360" y="448" fill="#4A6080" font-size="7">[V × 1]</text>
+      <text x="360" y="462" fill="#8BA3C7" font-size="7">grad_sq_b[i]</text>
+      <text x="360" y="476" fill="#4A6080" font-size="6">UPDATED EACH STEP</text>
+    </g>
+    <!-- b_tilde -->
+    <g>
+      <rect x="500" y="415" width="130" height="70" fill="#1A2535" stroke="#1E3A5F" stroke-width="1"/>
+      <text x="510" y="433" fill="#26DE81" font-size="9" font-weight="bold">b̃</text>
+      <text x="510" y="448" fill="#4A6080" font-size="7">[V × 1]</text>
+      <text x="510" y="462" fill="#8BA3C7" font-size="7">grad_sq_b̃[j]</text>
+      <text x="510" y="476" fill="#4A6080" font-size="6">UPDATED EACH STEP</text>
+    </g>
+    <!-- Loss -->
+    <g>
+      <rect x="650" y="415" width="130" height="70" fill="#1A2535" stroke="#1E3A5F" stroke-width="1"/>
+      <text x="660" y="433" fill="#9F43FF" font-size="9" font-weight="bold">LOSS</text>
+      <text x="660" y="448" fill="#4A6080" font-size="7">J (SCALAR)</text>
+      <text x="660" y="462" fill="#9F43FF" font-size="8" font-weight="bold">
+        0.0421
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+      </text>
+      <text x="660" y="476" fill="#4A6080" font-size="6">DECREASING</text>
+    </g>
+    <!-- Convergence -->
+    <g>
+      <rect x="800" y="415" width="110" height="70" fill="#1A2535" stroke="#1E3A5F" stroke-width="1"/>
+      <text x="810" y="433" fill="#4A6080" font-size="9" font-weight="bold">δLOSS</text>
+      <text x="810" y="448" fill="#4A6080" font-size="7">THRESHOLD</text>
+      <text x="810" y="462" fill="#8BA3C7" font-size="8">1e-4</text>
+      <circle cx="890" cy="460" r="4" fill="#26DE81" opacity="0.6">
+        <animate attributeName="fill" values="#26DE81;#FFB800;#26DE81" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+
+  <rect x="0" y="575" width="960" height="5" fill="#111827"/>
+  <rect x="0" y="575" width="960" height="1" fill="#1E3A5F" opacity="0.5"/>
+  <text x="20" y="572" fill="#4A6080" font-size="7">EMNLP 2014 · PENNINGTON, SOCHER &amp; MANNING</text>
+  <text x="940" y="572" fill="#4A6080" font-size="7" text-anchor="end">ADAGRAD · η=0.05 · NO LR DECAY · ε=1e-8</text>
+</svg>

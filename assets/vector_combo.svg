@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" font-family="'Consolas','Courier New',monospace">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="960" height="580" fill="#0B1120"/>
+  <g opacity="0.04" stroke="#1E3A5F" stroke-width="0.5">
+    <line x1="96" y1="0" x2="96" y2="580"/><line x1="192" y1="0" x2="192" y2="580"/>
+    <line x1="288" y1="0" x2="288" y2="580"/><line x1="384" y1="0" x2="384" y2="580"/>
+    <line x1="480" y1="0" x2="480" y2="580"/><line x1="576" y1="0" x2="576" y2="580"/>
+    <line x1="672" y1="0" x2="672" y2="580"/><line x1="768" y1="0" x2="768" y2="580"/>
+    <line x1="864" y1="0" x2="864" y2="580"/>
+  </g>
+
+  <rect x="0" y="0" width="960" height="3" fill="#FFB800" opacity="0.6"/>
+  <text x="20" y="22" fill="#FFB800" font-size="11" font-weight="bold" letter-spacing="3" opacity="0.9">VECTOR COMBINATION — W + W̃</text>
+  <text x="940" y="22" fill="#4A6080" font-size="9" text-anchor="end">SYS://GLOVE/MODEL</text>
+  <circle cx="880" cy="17" r="3" fill="#FFB800" opacity="0.8">
+    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- === W PANEL === -->
+  <g>
+    <rect x="50" y="60" width="280" height="200" fill="#111827" stroke="#1E3A5F" stroke-width="1"/>
+    <line x1="50" y1="60" x2="90" y2="60" stroke="#FFB800" stroke-width="1.5" opacity="0.6"/>
+    <line x1="50" y1="60" x2="50" y2="100" stroke="#FFB800" stroke-width="1.5" opacity="0.6"/>
+    <text x="60" y="80" fill="#FFB800" font-size="13" font-weight="bold" letter-spacing="2">W</text>
+    <text x="60" y="95" fill="#4A6080" font-size="7">WORD VECTORS</text>
+    <text x="280" y="80" fill="#00D4FF" font-size="9" opacity="0.7">[V × 300]</text>
+
+    <!-- Vector rows -->
+    <g opacity="0.3" stroke="#FFB800" stroke-width="0.5">
+      <line x1="70" y1="120" x2="310" y2="120"/>
+      <line x1="70" y1="145" x2="310" y2="145"/>
+      <line x1="70" y1="170" x2="310" y2="170"/>
+      <line x1="70" y1="195" x2="310" y2="195"/>
+      <line x1="70" y1="220" x2="310" y2="220"/>
+      <line x1="130" y1="110" x2="130" y2="240"/>
+      <line x1="190" y1="110" x2="190" y2="240"/>
+      <line x1="250" y1="110" x2="250" y2="240"/>
+    </g>
+
+    <!-- Highlighted vector -->
+    <rect x="70" y="137" width="240" height="16" fill="#FFB800" opacity="0.08" stroke="#FFB800" stroke-width="0.5" stroke-opacity="0.3">
+      <animate attributeName="fill-opacity" values="0.04;0.12;0.04" dur="3s" repeatCount="indefinite"/>
+    </rect>
+    <text x="75" y="150" fill="#FFB800" font-size="8" font-weight="bold">w_"king"</text>
+    <text x="170" y="150" fill="#8BA3C7" font-size="7" opacity="0.5">0.12 -0.34 0.56 ...</text>
+
+    <text x="190" y="252" fill="#4A6080" font-size="7" text-anchor="middle">RANDOM INIT: UNIFORM(-1/d, 1/d)</text>
+  </g>
+
+  <!-- Plus symbol -->
+  <g>
+    <text x="380" y="168" fill="#E8F0FE" font-size="28" font-weight="bold" opacity="0.6">+</text>
+  </g>
+
+  <!-- === W_tilde PANEL === -->
+  <g>
+    <rect x="420" y="60" width="280" height="200" fill="#111827" stroke="#1E3A5F" stroke-width="1"/>
+    <line x1="420" y1="60" x2="460" y2="60" stroke="#00D4FF" stroke-width="1.5" opacity="0.6"/>
+    <line x1="420" y1="60" x2="420" y2="100" stroke="#00D4FF" stroke-width="1.5" opacity="0.6"/>
+    <text x="430" y="80" fill="#00D4FF" font-size="13" font-weight="bold" letter-spacing="2">W̃</text>
+    <text x="430" y="95" fill="#4A6080" font-size="7">CONTEXT VECTORS</text>
+    <text x="650" y="80" fill="#FFB800" font-size="9" opacity="0.7">[V × 300]</text>
+
+    <!-- Vector rows -->
+    <g opacity="0.3" stroke="#00D4FF" stroke-width="0.5">
+      <line x1="440" y1="120" x2="680" y2="120"/>
+      <line x1="440" y1="145" x2="680" y2="145"/>
+      <line x1="440" y1="170" x2="680" y2="170"/>
+      <line x1="440" y1="195" x2="680" y2="195"/>
+      <line x1="440" y1="220" x2="680" y2="220"/>
+      <line x1="500" y1="110" x2="500" y2="240"/>
+      <line x1="560" y1="110" x2="560" y2="240"/>
+      <line x1="620" y1="110" x2="620" y2="240"/>
+    </g>
+
+    <!-- Highlighted vector -->
+    <rect x="440" y="137" width="240" height="16" fill="#00D4FF" opacity="0.08" stroke="#00D4FF" stroke-width="0.5" stroke-opacity="0.3">
+      <animate attributeName="fill-opacity" values="0.04;0.12;0.04" dur="3s" repeatCount="indefinite" begin="1s"/>
+    </rect>
+    <text x="445" y="150" fill="#00D4FF" font-size="8" font-weight="bold">w̃_"king"</text>
+    <text x="540" y="150" fill="#8BA3C7" font-size="7" opacity="0.5">-0.08 0.21 -0.15 ...</text>
+
+    <text x="560" y="252" fill="#4A6080" font-size="7" text-anchor="middle">DIFFERENT RANDOM INIT</text>
+  </g>
+
+  <!-- Equals symbol -->
+  <g>
+    <text x="748" y="168" fill="#E8F0FE" font-size="28" font-weight="bold" opacity="0.6">=</text>
+  </g>
+
+  <!-- === RESULT PANEL === -->
+  <g>
+    <rect x="780" y="60" width="150" height="200" fill="#111827" stroke="#26DE81" stroke-width="1"/>
+    <line x1="780" y1="60" x2="820" y2="60" stroke="#26DE81" stroke-width="1.5" opacity="0.6"/>
+    <line x1="930" y1="60" x2="890" y2="60" stroke="#26DE81" stroke-width="1.5" opacity="0.6"/>
+    <text x="790" y="80" fill="#26DE81" font-size="13" font-weight="bold" letter-spacing="2">W+W̃</text>
+    <text x="790" y="95" fill="#4A6080" font-size="7">FINAL VECTORS</text>
+    <text x="870" y="80" fill="#00D4FF" font-size="9" opacity="0.7">[V×300]</text>
+
+    <!-- Result vector -->
+    <rect x="790" y="137" width="130" height="16" fill="#26DE81" opacity="0.1" stroke="#26DE81" stroke-width="0.5" stroke-opacity="0.4">
+      <animate attributeName="fill-opacity" values="0.05;0.15;0.05" dur="2s" repeatCount="indefinite" begin="1.5s"/>
+    </rect>
+    <text x="795" y="150" fill="#26DE81" font-size="8" font-weight="bold">"king"</text>
+    <text x="835" y="150" fill="#8BA3C7" font-size="7" opacity="0.5">0.04 ...</text>
+
+    <text x="855" y="252" fill="#4A6080" font-size="7" text-anchor="middle">SUM, NOT CONCAT</text>
+  </g>
+
+  <!-- Data flow arrows -->
+  <line x1="332" y1="160" x2="370" y2="160" stroke="#FFB800" stroke-width="1" opacity="0.3"/>
+  <line x1="395" y1="160" x2="418" y2="160" stroke="#00D4FF" stroke-width="1" opacity="0.3"/>
+  <line x1="702" y1="160" x2="738" y2="160" stroke="#8BA3C7" stroke-width="1" opacity="0.3"/>
+  <line x1="762" y1="160" x2="778" y2="160" stroke="#26DE81" stroke-width="1" opacity="0.3"/>
+
+  <!-- Animated data pulse -->
+  <circle r="2" fill="#FFB800" opacity="0.6">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M332,160 L370,160"/>
+  </circle>
+  <circle r="2" fill="#00D4FF" opacity="0.6">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M702,160 L778,160" begin="0.5s"/>
+  </circle>
+
+  <!-- === WHY SUM? EXPLANATION PANEL === -->
+  <g>
+    <rect x="50" y="290" width="880" height="130" fill="#111827" stroke="#1E3A5F" stroke-width="1"/>
+    <line x1="50" y1="290" x2="90" y2="290" stroke="#FFB800" stroke-width="1.5" opacity="0.5"/>
+    <text x="60" y="310" fill="#FFB800" font-size="10" font-weight="bold" letter-spacing="1">WHY SUM, NOT CONCATENATION?</text>
+
+    <g font-size="9" fill="#8BA3C7">
+      <text x="60" y="335" fill="#E8F0FE">WHEN X IS SYMMETRIC, W AND W̃ ARE EQUIVALENT IN FUNCTION.</text>
+      <text x="60" y="352">THEY DIFFER ONLY BECAUSE OF THEIR RANDOM INITIALIZATIONS.</text>
+      <text x="60" y="375" fill="#26DE81" font-weight="bold">SUMMING W + W̃ GIVES A SMALL BOOST IN PERFORMANCE.</text>
+      <text x="60" y="395" fill="#9F43FF" font-weight="bold">THE BIGGEST INCREASE IS IN THE SEMANTIC ANALOGY TASK.</text>
+    </g>
+
+    <!-- Comparison cards -->
+    <g>
+      <rect x="660" y="300" width="120" height="55" fill="#1A2535" stroke="#26DE81" stroke-width="1" opacity="0.7"/>
+      <text x="670" y="318" fill="#26DE81" font-size="8" font-weight="bold">SUM: V×300</text>
+      <text x="670" y="333" fill="#4A6080" font-size="7">+ PERFORMANCE</text>
+      <text x="670" y="345" fill="#26DE81" font-size="8" font-weight="bold">✓ PAPER METHOD</text>
+    </g>
+    <g>
+      <rect x="800" y="300" width="120" height="55" fill="#1A2535" stroke="#FF4757" stroke-width="1" opacity="0.5"/>
+      <text x="810" y="318" fill="#FF4757" font-size="8" font-weight="bold">CONCAT: V×600</text>
+      <text x="810" y="333" fill="#4A6080" font-size="7">- NOT PAPER</text>
+      <text x="810" y="345" fill="#FF4757" font-size="8" font-weight="bold">✗ PROHIBITED</text>
+    </g>
+
+    <!-- Animated entry flow -->
+    <text x="660" y="385" fill="#4A6080" font-size="7">ENTRY FLOW:</text>
+    <text x="740" y="385" fill="#FFB800" font-size="7">W</text>
+    <text x="760" y="385" fill="#4A6080" font-size="7">→</text>
+    <text x="770" y="385" fill="#00D4FF" font-size="7">W̃</text>
+    <text x="795" y="385" fill="#4A6080" font-size="7">→</text>
+    <text x="805" y="385" fill="#26DE81" font-size="7">W+W̃</text>
+    <rect x="740" y="392" width="120" height="2" fill="#1A2535"/>
+    <rect x="740" y="392" width="0" height="2" fill="#26DE81" opacity="0.5">
+      <animate attributeName="width" values="0;120;0" dur="3s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- === EQUIVALENCE NOTE === -->
+  <g>
+    <rect x="50" y="440" width="880" height="65" fill="#111827" stroke="#1E3A5F" stroke-width="1"/>
+    <line x1="930" y1="440" x2="890" y2="440" stroke="#9F43FF" stroke-width="1.5" opacity="0.5"/>
+    <text x="60" y="460" fill="#9F43FF" font-size="9" font-weight="bold" letter-spacing="1">SYMMETRIC CO-OCCURRENCE IMPLIES EQUIVALENCE</text>
+    <text x="60" y="478" fill="#8BA3C7" font-size="8">X[i][j] = X[j][i] WHEN CONTEXT IS SYMMETRIC → W AND W̃ LEARN THE SAME MAPPING</text>
+    <text x="60" y="494" fill="#4A6080" font-size="7">FOR ASYMMETRIC CONTEXT, W AND W̃ CAPTURE DIFFERENT ROLES (TARGET vs. CONTEXT)</text>
+  </g>
+
+  <rect x="0" y="575" width="960" height="5" fill="#111827"/>
+  <rect x="0" y="575" width="960" height="1" fill="#1E3A5F" opacity="0.5"/>
+  <text x="20" y="572" fill="#4A6080" font-size="7">EMNLP 2014 · PENNINGTON, SOCHER &amp; MANNING</text>
+  <text x="940" y="572" fill="#4A6080" font-size="7" text-anchor="end">W+W̃ · SUM NOT CONCAT · SEMANTIC BOOST</text>
+</svg>
