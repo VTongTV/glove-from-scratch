@@ -21,8 +21,7 @@ def test_cost_decreases_after_step():
     vals = np.array([10.0, 5.0])
     cost_before = model.compute_cost(rows, cols, vals)
     for _ in range(10):
-        grad_w_i, grad_w_tilde_j = model.compute_grad_w(0, 1, 10.0)
-        grad_b_i, grad_b_tilde_j = model.compute_grad_b(0, 1, 10.0)
+        grad_w_i, grad_w_tilde_j, grad_b_i, grad_b_tilde_j, _ = model.compute_gradients(0, 1, 10.0)
         optimizer.update(model, 0, 1, grad_w_i, grad_w_tilde_j, grad_b_i, grad_b_tilde_j)
     cost_after = model.compute_cost(rows, cols, vals)
     assert cost_after < cost_before
@@ -30,8 +29,7 @@ def test_cost_decreases_after_step():
 def test_gradient_numerical_check():
     model = GloVeModel(vocab_size=2, embedding_dim=3)
     i, j, x_ij = 0, 1, 5.0
-    grad_w_i, grad_w_tilde_j = model.compute_grad_w(i, j, x_ij)
-    grad_b_i, grad_b_tilde_j = model.compute_grad_b(i, j, x_ij)
+    grad_w_i, grad_w_tilde_j, grad_b_i, grad_b_tilde_j, _ = model.compute_gradients(i, j, x_ij)
 
     eps = 1e-5
     for d in range(3):

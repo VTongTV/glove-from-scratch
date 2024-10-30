@@ -2,29 +2,27 @@ def load_analogies(path):
     semantic = {}
     syntactic = {}
     current_category = None
-    current_section = None
+    category_order = []
+    category_data = {}
     with open(path, "r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
+            if not line:
+                continue
             if line.startswith(":"):
-                category = line[1:].strip()
-                current_category = category
-                lower = category.lower()
-                if any(k in lower for k in ["capital", "currency", "city", "man", "woman"]):
-                    current_section = "semantic"
-                else:
-                    current_section = "syntactic"
-                if current_section == "semantic" and category not in semantic:
-                    semantic[category] = []
-                elif current_section == "syntactic" and category not in syntactic:
-                    syntactic[category] = []
+                current_category = line[1:].strip()
+                if current_category not in category_data:
+                    category_data[current_category] = []
+                    category_order.append(current_category)
                 continue
             parts = line.lower().split()
-            if len(parts) == 4:
-                if current_section == "semantic":
-                    semantic[current_category].append(tuple(parts))
-                else:
-                    syntactic[current_category].append(tuple(parts))
+            if len(parts) == 4 and current_category is not None:
+                category_data[current_category].append(tuple(parts))
+    for idx, cat in enumerate(category_order):
+        if idx < 5:
+            semantic[cat] = category_data[cat]
+        else:
+            syntactic[cat] = category_data[cat]
     return {"semantic": semantic, "syntactic": syntactic}
 
 def evaluate_analogies(vectors, analogies):

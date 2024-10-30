@@ -26,12 +26,19 @@ def spearman_rho(x, y):
     return 1 - 6 * np.sum(d ** 2) / (n * (n ** 2 - 1))
 
 def evaluate_similarity(vectors, pairs):
+    words = list(vectors.keys())
+    vec_matrix = np.array([vectors[w] for w in words])
+    means = vec_matrix.mean(axis=0)
+    stds = vec_matrix.std(axis=0)
+    stds[stds == 0] = 1.0
+    vec_matrix = (vec_matrix - means) / stds
+    normalized = {w: vec_matrix[i] for i, w in enumerate(words)}
     model_scores = []
     human_scores = []
     for w1, w2, score in pairs:
-        if w1 in vectors and w2 in vectors:
-            from eval.similarity import cosine_similarity
-            cs = cosine_similarity(vectors[w1], vectors[w2])
+        if w1 in normalized and w2 in normalized:
+            a, b = normalized[w1], normalized[w2]
+            cs = np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-10)
             model_scores.append(cs)
             human_scores.append(score)
     if len(model_scores) < 2:

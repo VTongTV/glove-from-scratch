@@ -10,3 +10,4 @@ __pycache__/
 *.pyc
 outputs/
 *.egg-info/
+data/corpus/

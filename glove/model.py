@@ -33,12 +33,14 @@ class GloVeModel:
         grad_w_tilde_j = 2 * f_x * diff * self.W[i]
         return grad_w_i, grad_w_tilde_j
 
-    def compute_grad_b(self, i, j, x_ij):
+    def compute_gradients(self, i, j, x_ij):
         diff = np.dot(self.W[i], self.W_tilde[j]) + self.b[i] + self.b_tilde[j] - np.log(x_ij)
         f_x = weight_func(x_ij)
-        grad_b_i = 2 * f_x * diff
-        grad_b_tilde_j = 2 * f_x * diff
-        return grad_b_i, grad_b_tilde_j
+        common = 2 * f_x * diff
+        loss = f_x * diff ** 2
+        grad_w_i = common * self.W_tilde[j]
+        grad_w_tilde_j = common * self.W[i]
+        return grad_w_i, grad_w_tilde_j, common, common, loss
 
     def get_vectors(self, vocab):
         combined = self.W + self.W_tilde
